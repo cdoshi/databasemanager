@@ -1,0 +1,8 @@
+{
+  "name": "databasemanager",
+  "description": "Web app for patient database management",
+  "author": "Chiran Doshi",
+  "dependencies": {
+    "express": "4.13.x"
+  }
+}
