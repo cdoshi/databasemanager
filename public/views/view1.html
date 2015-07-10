@@ -2,10 +2,6 @@
 <h1>{{name1}}</h1>
 <input type="text" data-ng-model="name1">
 </input>
-<button class="btn btn-success" ng-click="addAlert()">
+<button class="btn btn-success">
     Hello
 </button>
-<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
-    {{alert.msg}}
-</alert>
-

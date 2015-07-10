@@ -1,6 +1,5 @@
 define(['app'], function(app) {
-    app.controller('ctrl2', ['$scope',
-    function($scope) {
+    app.controller('ctrl2', function($scope) {
         $scope.name2 = 'Hello';
-    }]);
+    });
 }); 
