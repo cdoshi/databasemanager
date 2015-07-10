@@ -1,7 +1,7 @@
-define(['angular', 'angularRoute', 'angularAMD'], function(angular, ngRoute, angularAMD) {
+define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], function(angular, ngRoute, angularAMD) {
     "use strict";
 
-    var app = angular.module('mainApp', ['ngRoute']);
+    var app = angular.module('mainApp', ['ui.bootstrap', 'ngRoute']);
 
     app.config(['$routeProvider',
     function($routeProvider) {
@@ -21,4 +21,4 @@ define(['angular', 'angularRoute', 'angularAMD'], function(angular, ngRoute, ang
 
     return angularAMD.bootstrap(app);
 
-}); 
+});
