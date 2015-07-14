@@ -15,7 +15,7 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
             var modalInstance = $modal.open({
                 animation : $scope.animationsEnabled,
                 templateUrl : 'signUpModalContent.html',
-                controller : 'ModalInstanceCtrl',
+                controller : 'modalInstanceCtrl',
                 size : size,
                 resolve : {
                     items : function() {
@@ -31,26 +31,16 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
             });
         };
 
-        $scope.toggleAnimation = function() {
-            $scope.animationsEnabled = !$scope.animationsEnabled;
-        };
-
     });
 
     
-
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
-    app.controller('ModalInstanceCtrl', function($scope, $modalInstance, items) {
+    app.controller('modalInstanceCtrl', function($scope, $modalInstance) {
 
-        $scope.items = items;
-        $scope.selected = {
-            item : $scope.items[0]
-        };
-
-        $scope.ok = function() {
-            $modalInstance.close($scope.selected.item);
+        $scope.sendReq = function() {
+            $scope.submitted = true;
         };
 
         $scope.cancel = function() {

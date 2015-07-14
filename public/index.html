@@ -13,18 +13,36 @@
     <body>
 
         <nav class="navbar navbar-inverse" role="navigation" ng-controller="menuCtrl">
-            
 
             <script type="text/ng-template" id="signUpModalContent.html">
                 <div class="modal-header">
-                <h3 class="modal-title">Sign Up</h3>
+                <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Sign Up</h4>
                 </div>
                 <div class="modal-body">
-                
+                <!-- pass in the variable if our form is valid or invalid -->
+                <form name="userForm" novalidate>
+
+                <!-- NAME -->
+                <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine && submitted}">
+                <label>Name*</label>
+                <input type="text" name="name" class="form-control" ng-model="user.name" required>
+                <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Your name is required.</p>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine && submitted }">
+                <label>Email*</label>
+                <input type="email" name="email" class="form-control" ng-model="user.email" required>
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine && submitted" class="help-block">Enter a valid email.</p>
+                </div>
+
+                </form>
+
                 </div>
                 <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="sendReq()">Send</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
                 </div>
             </script>
 
