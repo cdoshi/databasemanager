@@ -3,9 +3,9 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
 
     var app = angular.module('mainApp', ['ui.bootstrap', 'ngRoute']);
 
-    app.controller('menuCtrl', function($scope,$modal,$log) {
+    app.controller('menuCtrl', function($scope, $modal, $log) {
         $scope.navbarCollapsed = true;
-        
+
         $scope.items = ['item1', 'item2', 'item3'];
 
         $scope.animationsEnabled = true;
@@ -32,8 +32,28 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
         };
 
     });
-
     
+    var compareTo = function() {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+             
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+ 
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+};
+ 
+app.directive("compareTo", compareTo);
+
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
@@ -41,12 +61,14 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
 
         $scope.sendReq = function() {
             $scope.submitted = true;
+
         };
 
         $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
         };
     });
+
 
     app.config(['$routeProvider',
     function($routeProvider) {
