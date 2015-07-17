@@ -5,9 +5,6 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
 
     app.controller('menuCtrl', function($scope, $modal, $log) {
         $scope.navbarCollapsed = true;
-
-        $scope.items = ['item1', 'item2', 'item3'];
-
         $scope.animationsEnabled = true;
 
         $scope.open = function(size) {
@@ -16,59 +13,62 @@ define(['angular', 'angularRoute', 'angularAMD', 'bootstrap', 'bootstraptpl'], f
                 animation : $scope.animationsEnabled,
                 templateUrl : 'signUpModalContent.html',
                 controller : 'modalInstanceCtrl',
-                size : size,
-                resolve : {
-                    items : function() {
-                        return $scope.items;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function(selectedItem) {
-                $scope.selected = selectedItem;
-            }, function() {
-                $log.info('Modal dismissed at: ' + new Date());
+                size : size
             });
         };
-
     });
-    
-    var compareTo = function() {
-    return {
-        require: "ngModel",
-        scope: {
-            otherModelValue: "=compareTo"
-        },
-        link: function(scope, element, attributes, ngModel) {
-             
-            ngModel.$validators.compareTo = function(modelValue) {
-                return modelValue == scope.otherModelValue;
-            };
- 
-            scope.$watch("otherModelValue", function() {
-                ngModel.$validate();
-            });
-        }
-    };
-};
- 
-app.directive("compareTo", compareTo);
+
+    app.directive("compareTo", function() {
+        return {
+            require : "ngModel",
+            scope : {
+                otherModelValue : "=compareTo"
+            },
+            link : function(scope, element, attributes, ngModel) {
+
+                ngModel.$validators.compareTo = function(modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
+
+                scope.$watch("otherModelValue", function() {
+                    ngModel.$validate();
+                });
+            }
+        };
+    });
 
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
     app.controller('modalInstanceCtrl', function($scope, $modalInstance) {
 
-        $scope.sendReq = function() {
+        $scope.sendReq = function(form) {
             $scope.submitted = true;
 
+            if (form.$valid) {
+                $http({
+                    method : 'POST',
+                    url : '/signUp',
+                    data : $scope.user, // pass in data as strings
+                    headers : {
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    } // set the headers so angular passing info as form data (not request payload)
+                }).success(function(data) {
+                    console.log(data);
+
+                    if (data.success) {
+                        
+                    } else {
+                        
+                    }
+                });
+            }
         };
 
         $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
         };
     });
-
 
     app.config(['$routeProvider',
     function($routeProvider) {

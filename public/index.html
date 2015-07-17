@@ -20,43 +20,44 @@
                 <h4 class="modal-title">Sign Up</h4>
                 </div>
                 <div class="modal-body">
+                    
                 <!-- pass in the variable if our form is valid or invalid -->
-                <form name="userForm" novalidate>
+                <form name="signUpForm" novalidate>
 
                 <!-- NAME -->
-                <div class="form-group" ng-class="{ 'has-error' : userForm.name.$error.required && submitted}">
+                <div class="form-group" ng-class="{'has-error':signUpForm.name.$error.required && submitted}">
                 <label>Name*</label>
                 <input type="text" name="name" class="form-control" ng-model="user.name" required>
-                <p ng-show="userForm.name.$error.required && submitted" class="help-block">Your name is required.</p>
+                <p ng-show="signUpForm.name.$error.required && submitted" class="help-block">Your name is required.</p>
                 </div>
 
                 <!-- EMAIL -->
-                <div class="form-group" ng-class="{ 'has-error' : (userForm.email.$invalid || userForm.email.$error.required) && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : (signUpForm.email.$invalid || signUpForm.email.$error.required) && submitted }">
                 <label>Email*</label>
                 <input type="email" name="email" class="form-control" ng-model="user.email" required>
-                <p ng-show="(userForm.email.$invalid || userForm.email.$error.required) && submitted" class="help-block">Enter a valid email.</p>
+                <p ng-show="(signUpForm.email.$invalid || signUpForm.email.$error.required) && submitted" class="help-block">Enter a valid email.</p>
                 </div>
-                
+
                 <!-- PASSWORD -->
-                <div class="form-group" ng-class="{ 'has-error' : userForm.password.$error.required && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : signUpForm.password.$error.required && submitted }">
                 <label>Password*</label>
                 <input type="password" name="password" class="form-control" ng-model="user.password" required>
-                <p ng-show="userForm.password.$error.required && submitted" class="help-block">Enter password</p>
+                <p ng-show="signUpForm.password.$error.required && submitted" class="help-block">Enter password</p>
                 </div>
-                
+
                 <!-- CONFIRM PASSWORD -->
-                <div class="form-group" ng-class="{ 'has-error' : userForm.confirmpassword.$error && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : signUpForm.cpassword.$error.compareTo && submitted }">
                 <label>Confirm Password*</label>
-                <input type="password" class="form-control" name="confirmpassword" ng-model="confirmpassword" compare-to="user.password" required>
-                <p ng-show="userForm.confirmpassword.$error && submitted" class="help-block">Password do not match</p>
+                <input type="password" class="form-control" name="cpassword" ng-model="cpassword" compare-to="user.password" required>
+                <p ng-show="signUpForm.cpassword.$error.compareTo && submitted" class="help-block">Passwords do not match</p>
                 </div>
-                
 
                 </form>
 
                 </div>
+
                 <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="sendReq()">Send</button>
+                <button class="btn btn-primary" ng-click="sendReq(signUpForm)">Send</button>
                 <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
                 </div>
             </script>
@@ -68,8 +69,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"> Database </a>
+                </button><a class="navbar-brand" href="#"> Database </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -104,7 +104,6 @@
                         </ul>
                     </li>
                 </ul>
-
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#" ng-click="open()">Sign Up</a>
